@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Transport represents SQL table and JSON object.
+// Transport represents JSON object for opencars API.
 type Transport struct {
 	Registration string `json:"registration"`
 	Date         string `json:"date"`
@@ -19,14 +19,16 @@ type Transport struct {
 	Purpose      string `json:"purpose"`
 	Fuel         string `json:"fuel"`
 	Capacity     int    `json:"capacity"`
-	OwnWeight    int    `json:"own_weight"`
+	Weight       int    `json:"own_weight"`
 	Number       string `json:"number"`
 }
 
+// Client is simple representation of opencars SDK.
 type Client struct {
 	uri string
 }
 
+// New initializes new instance of client structure.
 func New(uri string) *Client {
 	client := new(Client)
 
@@ -55,7 +57,8 @@ func (client *Client) search(number string, limit int) ([]Transport, error) {
 	return models, nil
 }
 
-//
+// Search makes API request to get transport info by government number.
+// Returns first transport from opencars transports tables.
 func (client *Client) Search(number string) (*Transport, error) {
 	transport, err := client.search(number, 1)
 
@@ -66,6 +69,7 @@ func (client *Client) Search(number string) (*Transport, error) {
 	return &transport[0], nil
 }
 
+// SearchLimit makes API request to opencars with limit parameter.
 func (client *Client) SearchLimit(number string, limit int) ([]Transport, error) {
 	return client.search(number, limit)
 }
