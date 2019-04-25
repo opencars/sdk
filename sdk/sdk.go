@@ -6,21 +6,26 @@ import (
 	"net/http"
 )
 
-// Transport represents JSON object for opencars API.
-type Transport struct {
-	Registration string `json:"registration"`
-	Date         string `json:"date"`
-	Brand        string `json:"brand"`
-	Model        string `json:"model"`
-	Year         int    `json:"year"`
-	Color        string `json:"color"`
-	Kind         string `json:"kind"`
-	Body         string `json:"body"`
-	Purpose      string `json:"purpose"`
-	Fuel         string `json:"fuel"`
-	Capacity     int    `json:"capacity"`
-	Weight       int    `json:"own_weight"`
-	Number       string `json:"number"`
+// Operation represents public registrations of transport.
+type Operation struct {
+	Person      string `json:"person"`
+	Address     string `json:"address"`
+	Code        int    `json:"operation"`
+	Description string `json:"description"`
+	Date        string `json:"date"`
+	OfficeID    int    `json:"office_id"`
+	OfficeName  string `json:"office_name"`
+	Brand       string `json:"brand"`
+	Model       string `json:"model"`
+	Year        int    `json:"year"`
+	Color       string `json:"color"`
+	Kind        string `json:"kind"`
+	Body        string `json:"body"`
+	Purpose     string `json:"purpose"`
+	Fuel        string `json:"fuel"`
+	Capacity    int    `json:"capacity"`
+	Weight      int    `json:"weight"`
+	Number      string `json:"number"`
 }
 
 // Client is simple representation of opencars SDK.
@@ -37,19 +42,19 @@ func New(uri string) *Client {
 	return client
 }
 
-func (client *Client) search(number string, limit int) ([]Transport, error) {
+func (client *Client) search(number string, limit int) ([]Operation, error) {
 	if number == "" {
 		return nil, errors.New("number is empty")
 	}
 
-	query := client.uri + "/transport/?number=" + number
+	query := client.uri + "/transport?number=" + number
 	response, err := http.Get(query)
 
 	if err != nil {
 		return nil, err
 	}
 
-	models := make([]Transport, 0)
+	models := make([]Operation, 0)
 	if err := json.NewDecoder(response.Body).Decode(&models); err != nil {
 		return nil, errors.New("invalid response body")
 	}
@@ -58,18 +63,18 @@ func (client *Client) search(number string, limit int) ([]Transport, error) {
 }
 
 // Search makes API request to get transport info by government number.
-// Returns first transport from opencars transports tables.
-func (client *Client) Search(number string) (*Transport, error) {
-	transport, err := client.search(number, 1)
+// Returns first operation from opencars operation tables.
+func (client *Client) Search(number string) (*Operation, error) {
+	operation, err := client.search(number, 1)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &transport[0], nil
+	return &operation[0], nil
 }
 
 // SearchLimit makes API request to opencars with limit parameter.
-func (client *Client) SearchLimit(number string, limit int) ([]Transport, error) {
+func (client *Client) SearchLimit(number string, limit int) ([]Operation, error) {
 	return client.search(number, limit)
 }
