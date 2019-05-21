@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 )
 
 // Operation represents public registrations of transport.
@@ -47,7 +48,7 @@ func (client *Client) search(number string, limit int) ([]Operation, error) {
 		return nil, errors.New("number is empty")
 	}
 
-	query := client.uri + "/transport?number=" + number
+	query := client.uri + "/transport?number=" + number + "&limit=" + strconv.Itoa(limit)
 	response, err := http.Get(query)
 
 	if err != nil {
