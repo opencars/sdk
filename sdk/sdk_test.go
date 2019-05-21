@@ -8,7 +8,7 @@ import (
 )
 
 func TestAPI_Search(t *testing.T) {
-	fake := Transport{}
+	fake := Operation{}
 
 	okServer := httptest.NewServer(
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
