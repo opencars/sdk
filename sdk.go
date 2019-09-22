@@ -1,4 +1,4 @@
-package sdk
+package toolkit
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type Client struct {
 }
 
 // New initializes new instance of client structure.
-func New(uri string) *Client {
+func NewSDK(uri string) *Client {
 	client := new(Client)
 
 	client.uri = uri
@@ -66,8 +66,8 @@ func (client *Client) searchRegistrations(code string) ([]Registration, error) {
 	return models, nil
 }
 
-// Search makes API request to get transport info by government number.
-// Returns first operation from OpenCars operation tables.
+// Operation makes API request to get operations details by government number.
+// Returns first operation from OpenCars operations tables.
 func (client *Client) Operation(number string) (*Operation, error) {
 	operation, err := client.searchOperations(number, 1)
 
@@ -78,8 +78,8 @@ func (client *Client) Operation(number string) (*Operation, error) {
 	return &operation[0], nil
 }
 
-// Search makes API request to get transport info by government number.
-// Returns first operation from OpenCars operation tables.
+// Registrations makes API request to get registration info by unique transport cerificate code.
+// Returns all operations from OpenCars operations tables.
 func (client *Client) Registrations(code string) ([]Registration, error) {
 	registrations, err := client.searchRegistrations(code)
 
@@ -90,7 +90,7 @@ func (client *Client) Registrations(code string) ([]Registration, error) {
 	return registrations, nil
 }
 
-// SearchLimit makes API request to opencars with limit parameter.
+// Operations makes API request to get operations details by government number.
 func (client *Client) Operations(number string, limit int) ([]Operation, error) {
 	return client.searchOperations(number, limit)
 }

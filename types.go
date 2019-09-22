@@ -1,4 +1,4 @@
-package sdk
+package toolkit
 
 // Operation represents public registrations of transport.
 type Operation struct {

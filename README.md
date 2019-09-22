@@ -4,11 +4,11 @@
 
 Download opencars toolkit with following command
 
-```
-$ go get github.com/opencars/toolkit
+```sh
+go get -u github.com/opencars/toolkit
 ```
 
-## Development
+## Example
 
 Simple example of toolkit usage
 
@@ -16,20 +16,20 @@ Simple example of toolkit usage
 package main
 
 import (
-	"fmt"
+  "fmt"
 
-	"github.com/opencars/toolkit"
+  "github.com/opencars/toolkit"
 )
 
 func main() {
-  client := toolkit.New("https://api.opencars.pp.ua")
-  transport, err := client.Search("AA1111BX")
+  client := toolkit.NewSDK("https://api.opencars.pp.ua")
+  operation, err := client.Operation("AA1111BX")
 
   if err != nil {
-  	panic(err)
+    panic(err)
   }
 
-  fmt.Println(transport)
+  fmt.Println(operation)
 }
 ```
 
