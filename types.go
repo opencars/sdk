@@ -20,6 +20,7 @@ type Operation struct {
 	Capacity    int    `json:"capacity"`
 	Weight      int    `json:"weight"`
 	Number      string `json:"number"`
+	VIN         string `json:"vin"`
 }
 
 // Registration represents information from vehicle registration document.
@@ -36,7 +37,7 @@ type Registration struct {
 	Model       string `json:"model"`
 	Code        string `json:"code"`
 	Number      string `json:"number"`
-	TotalWeight int    `json:"total_weight`
+	TotalWeight int    `json:"total_weight"`
 	OwnWeight   int    `json:"own_weight"`
 	Category    string `json:"category"`
 	VIN         string `json:"vin"`
