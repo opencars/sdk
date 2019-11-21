@@ -23,7 +23,7 @@ func TestAPI_Operation(t *testing.T) {
 	defer server.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid")
+		api := NewSDK("http://invalid", "test")
 		_, err := api.Operation("AX1234BT")
 
 		if err == nil {
@@ -32,7 +32,7 @@ func TestAPI_Operation(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(server.URL).Operation("AX1234BT")
+		_, err := NewSDK(server.URL, "test").Operation("AX1234BT")
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -59,7 +59,7 @@ func TestAPI_Operations(t *testing.T) {
 	defer jsonServer.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid")
+		api := NewSDK("http://invalid", "test")
 		_, err := api.Operations("AX1234BT", 1)
 
 		if err == nil {
@@ -68,7 +68,7 @@ func TestAPI_Operations(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(okServer.URL).Operations("AX1234BT", 1)
+		_, err := NewSDK(okServer.URL, "test").Operations("AX1234BT", 1)
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -89,7 +89,7 @@ func TestAPI_OperationsWithFixture(t *testing.T) {
 	)
 	defer server.Close()
 
-	operations, err := NewSDK(server.URL).Operations("АА9359РС", 1)
+	operations, err := NewSDK(server.URL, "test").Operations("АА9359РС", 1)
 	if err != nil {
 		t.Fail()
 	}
@@ -112,7 +112,7 @@ func TestAPI_Registrations(t *testing.T) {
 	defer server.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid")
+		api := NewSDK("http://invalid", "test")
 		_, err := api.Registrations("CXI012345")
 
 		if err == nil {
@@ -121,7 +121,7 @@ func TestAPI_Registrations(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(server.URL).Registrations("CXI012345")
+		_, err := NewSDK(server.URL, "test").Registrations("CXI012345")
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -142,7 +142,7 @@ func TestAPI_RegistrationsWithFixture(t *testing.T) {
 	)
 	defer server.Close()
 
-	registrations, err := NewSDK(server.URL).Registrations("СХН484154")
+	registrations, err := NewSDK(server.URL, "test").Registrations("СХН484154")
 	if err != nil {
 		t.Fail()
 	}

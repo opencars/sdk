@@ -14,14 +14,15 @@ const (
 
 // Client is simple representation of opencars SDK.
 type Client struct {
-	uri string
+	uri, token string
 }
 
 // New initializes new instance of client structure.
-func NewSDK(uri string) *Client {
+func NewSDK(uri string, token string) *Client {
 	client := new(Client)
 
 	client.uri = uri
+	client.token = token
 
 	return client
 }
@@ -32,8 +33,15 @@ func (client *Client) searchOperations(number string, limit int) ([]Operation, e
 	}
 
 	query := client.uri + operationsPath + "?number=" + number + "&limit=" + strconv.Itoa(limit)
-	response, err := http.Get(query)
 
+	req, err := http.NewRequest(http.MethodGet, query, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Api-Key", client.token)
+
+	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -52,8 +60,15 @@ func (client *Client) searchRegistrations(code string) ([]Registration, error) {
 	}
 
 	query := client.uri + registrationsPath + "?code=" + code
-	response, err := http.Get(query)
 
+	req, err := http.NewRequest(http.MethodGet, query, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Api-Key", client.token)
+
+	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
