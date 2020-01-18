@@ -22,8 +22,8 @@ import (
 )
 
 func main() {
-  client := toolkit.NewSDK("https://api.opencars.pp.ua")
-  operation, err := client.Operation("AA1111BX")
+  client := toolkit.NewSDK("https://api.opencars.app")
+  operation, err := client.Operation("АА9359РС")
 
   if err != nil {
     panic(err)

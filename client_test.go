@@ -1,4 +1,4 @@
-package toolkit
+package toolkit_test
 
 import (
 	"encoding/json"
@@ -7,6 +7,8 @@ import (
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	"github.com/opencars/toolkit"
 )
 
 const (
@@ -23,8 +25,8 @@ func TestAPI_Operation(t *testing.T) {
 	defer server.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid", "test")
-		_, err := api.Operation("AX1234BT")
+		api := toolkit.New("http://invalid", "test")
+		_, err := api.Operation().FindByNumber("AX1234BT")
 
 		if err == nil {
 			t.Errorf("should throw an error")
@@ -32,7 +34,7 @@ func TestAPI_Operation(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(server.URL, "test").Operation("AX1234BT")
+		_, err := toolkit.New(server.URL, "test").Operation().FindByNumber("AX1234BT")
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -40,7 +42,7 @@ func TestAPI_Operation(t *testing.T) {
 }
 
 func TestAPI_Operations(t *testing.T) {
-	fake := Operation{}
+	fake := toolkit.Operation{}
 
 	okServer := httptest.NewServer(
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -59,8 +61,8 @@ func TestAPI_Operations(t *testing.T) {
 	defer jsonServer.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid", "test")
-		_, err := api.Operations("AX1234BT", 1)
+		api := toolkit.New("http://invalid", "test")
+		_, err := api.Operation().FindByNumber("AX1234BT")
 
 		if err == nil {
 			t.Errorf("should throw an error")
@@ -68,7 +70,7 @@ func TestAPI_Operations(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(okServer.URL, "test").Operations("AX1234BT", 1)
+		_, err := toolkit.New(okServer.URL, "test").Operation().FindByNumber("AX1234BT")
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -84,17 +86,13 @@ func TestAPI_OperationsWithFixture(t *testing.T) {
 
 	server := httptest.NewServer(
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			io.Copy(w, fake)
+			_, _ = io.Copy(w, fake)
 		}),
 	)
 	defer server.Close()
 
-	operations, err := NewSDK(server.URL, "test").Operations("АА9359РС", 1)
+	operations, err := toolkit.New(server.URL, "test").Operation().FindByNumber("АА9359РС")
 	if err != nil {
-		t.Fail()
-	}
-
-	if len(operations) != 1 {
 		t.Fail()
 	}
 
@@ -112,8 +110,8 @@ func TestAPI_Registrations(t *testing.T) {
 	defer server.Close()
 
 	t.Run("server is not running", func(t *testing.T) {
-		api := NewSDK("http://invalid", "test")
-		_, err := api.Registrations("CXI012345")
+		api := toolkit.New("http://invalid", "test")
+		_, err := api.Registration().FindByCode("CXH484154")
 
 		if err == nil {
 			t.Errorf("should throw an error")
@@ -121,7 +119,7 @@ func TestAPI_Registrations(t *testing.T) {
 	})
 
 	t.Run("invalid response body", func(t *testing.T) {
-		_, err := NewSDK(server.URL, "test").Registrations("CXI012345")
+		_, err := toolkit.New(server.URL, "test").Registration().FindByCode("CXH484154")
 		if err.Error() != "invalid response body" {
 			t.Fail()
 		}
@@ -142,7 +140,7 @@ func TestAPI_RegistrationsWithFixture(t *testing.T) {
 	)
 	defer server.Close()
 
-	registrations, err := NewSDK(server.URL, "test").Registrations("СХН484154")
+	registrations, err := toolkit.New(server.URL, "test").Registration().FindByCode("CXH484154")
 	if err != nil {
 		t.Fail()
 	}
@@ -151,7 +149,7 @@ func TestAPI_RegistrationsWithFixture(t *testing.T) {
 		t.Fail()
 	}
 
-	if registrations[0].Code != "СХН484154" {
-		t.Errorf("%v != %v", registrations[0].Code, "СХН484154")
+	if registrations[0].SDoc+registrations[0].NDoc != "CXH484154" {
+		t.Errorf("%v != %v", registrations[0].SDoc+registrations[0].NDoc, "CXH484154")
 	}
 }

@@ -1,20 +1,22 @@
 [
     {
-        "body": "УНІВЕРСАЛ-B",
         "brand": "TESLA",
-        "capacity": 0,
-        "category": "B",
-        "code": "СХН484154",
+        "capacity": null,
         "color": "ЧОРНИЙ",
-        "date": "2019-06-05",
-        "first_reg": "2016-10-13",
+        "d_first_reg": "2016-10-13T00:00:00Z",
+        "d_reg": "2019-06-05T00:00:00Z",
         "fuel": "ЕЛЕКТРО",
-        "kind": "ЛЕГКОВИЙ",
+        "kind": "ЛЕГКОВИЙ УНІВЕРСАЛ-B",
+        "make_year": 2016,
         "model": "MODEL X",
-        "number": "АА9359РС",
+        "n_doc": "484154",
+        "n_reg_new": "AA9359PC",
+        "n_seating": 7,
+        "n_standing": null,
         "own_weight": 2485,
+        "rank_category": "B",
+        "s_doc": "CXH",
         "total_weight": 3021,
-        "vin": "5YJXCCE40GF010543",
-        "year": 2016
+        "vin": "5YJXCCE40GF010543"
     }
 ]
