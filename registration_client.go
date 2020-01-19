@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	registrationPath = "/api/v1/edrmvs/"
+	registrationPath = "/api/v1/registrations"
 )
 
 type RegistrationClient struct {
@@ -60,8 +60,8 @@ func (client *RegistrationClient) FindByNumber(number string) ([]Registration, e
 	return registrations, nil
 }
 
-func (client *RegistrationClient) FindByCode(code string) ([]Registration, error) {
-	query := client.base.uri + registrationPath + "?code=" + code
+func (client *RegistrationClient) FindByCode(code string) (*Registration, error) {
+	query := client.base.uri + registrationPath + "/" + code
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
@@ -75,10 +75,10 @@ func (client *RegistrationClient) FindByCode(code string) ([]Registration, error
 		return nil, err
 	}
 
-	registrations := make([]Registration, 0)
-	if err := json.NewDecoder(response.Body).Decode(&registrations); err != nil {
+	var registration Registration
+	if err := json.NewDecoder(response.Body).Decode(&registration); err != nil {
 		return nil, errors.New("invalid response body")
 	}
 
-	return registrations, nil
+	return &registration, nil
 }

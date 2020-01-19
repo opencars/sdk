@@ -1,12 +1,13 @@
 package toolkit
 
-import "time"
+import (
+	"time"
+)
 
 // Operation represents public registrations of transport.
 type Operation struct {
 	Person      string   `json:"person"`
 	RegAddress  *string  `json:"reg_address"`
-	Code        int16    `json:"code"`
 	Name        string   `json:"name"`
 	Date        string   `json:"reg_date"`
 	OfficeID    int32    `json:"office_id"`

@@ -17,16 +17,17 @@ package main
 
 import (
   "fmt"
+  "log"
+  "os"
 
   "github.com/opencars/toolkit"
 )
 
 func main() {
-  client := toolkit.NewSDK("https://api.opencars.app")
-  operation, err := client.Operation("АА9359РС")
-
+  client := toolkit.New("https://api.opencars.app", os.Getenv("OPENCARS_API_KEY"))
+  operation, err := client.Operation().FindByNumber("АА9359РС")
   if err != nil {
-    panic(err)
+    log.Fatal(err)
   }
 
   fmt.Println(operation)

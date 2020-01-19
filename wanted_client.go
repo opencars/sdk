@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	wantedPath = "/wanted/vehicles"
+	wantedPath = "/api/v1/wanted/vehicles"
 )
 
 type WantedClient struct {
