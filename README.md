@@ -1,4 +1,14 @@
-# Toolkit
+# OpenCars Toolkit
+
+[godoc]: https://godoc.org/github.com/opencars/toolkit
+[godoc-img]: https://godoc.org/github.com/opencars/toolkit?status.svg
+[goreport]: https://goreportcard.com/report/github.com/opencars/toolkit
+[goreport-img]: https://goreportcard.com/badge/github.com/opencars/toolkit
+[version]: https://img.shields.io/github/v/tag/opencars/toolkit?sort=semver
+
+[![Docs][godoc-img]][godoc]
+[![Go Report][goreport-img]][goreport]
+[![Version][version]][version]
 
 ## Overview
 
@@ -12,7 +22,7 @@ go get -u github.com/opencars/toolkit
 
 Simple example of toolkit usage
 
-````go
+```go
 package main
 
 import (
@@ -39,4 +49,3 @@ func main() {
 ## License
 
 Project released under the terms of the MIT [license](./LICENSE).
-````
