@@ -12,28 +12,31 @@ go get -u github.com/opencars/toolkit
 
 Simple example of toolkit usage
 
-```go
+````go
 package main
 
 import (
-  "fmt"
-  "log"
-  "os"
+    "fmt"
+    "log"
+    "os"
 
-  "github.com/opencars/toolkit"
+    "github.com/opencars/toolkit"
 )
 
 func main() {
-  client := toolkit.New("https://api.opencars.app", os.Getenv("OPENCARS_API_KEY"))
-  operation, err := client.Operation().FindByNumber("АА9359РС")
-  if err != nil {
-    log.Fatal(err)
-  }
+    client := toolkit.New("https://api.opencars.app", os.Getenv("OPENCARS_API_KEY"))
 
-  fmt.Println(operation)
-}
+    operations, err := client.Operation().FindByNumber("АА9359РС")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, op := range operations {
+        fmt.Println(op)
+    }
 ```
 
 ## License
 
 Project released under the terms of the MIT [license](./LICENSE).
+````
