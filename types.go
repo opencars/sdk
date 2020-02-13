@@ -7,12 +7,13 @@ import (
 // Operation represents public registrations of transport.
 type Operation struct {
 	Person      string   `json:"person"`
-	RegAddress  *string  `json:"reg_address"`
-	Name        string   `json:"name"`
-	Date        string   `json:"reg_date"`
-	OfficeID    int32    `json:"office_id"`
-	OfficeName  string   `json:"office_name"`
-	Make        string   `json:"make"`
+	RegAddress  *string  `json:"reg_addr_koatuu"`
+	RegCode     int16    `json:"registration_code"`
+	Reg         string   `json:"registration"`
+	Date        string   `json:"date"`
+	DepCode     int32    `json:"dep_code"`
+	Dep         string   `json:"dep"`
+	Brand       string   `json:"brand"`
 	Model       string   `json:"model"`
 	Year        int16    `json:"year"`
 	Color       string   `json:"color"`
@@ -24,7 +25,6 @@ type Operation struct {
 	OwnWeight   *float64 `json:"own_weight"`
 	TotalWeight *float64 `json:"total_weight"`
 	Number      string   `json:"number"`
-	ResourceID  int64    `json:"resource_id"`
 }
 
 // Registration represents information from vehicle registration document.
