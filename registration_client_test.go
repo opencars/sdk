@@ -25,7 +25,7 @@ func ExampleRegistrationClient_FindByNumber() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(registrations[0].NRegNew)
+	fmt.Println(registrations[0].Number)
 	// Output: AA9359PC
 }
 
@@ -36,6 +36,6 @@ func ExampleRegistrationClient_FindByCode() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(registration.SDoc + registration.NDoc)
+	fmt.Println(registration.Code)
 	// Output: CXH484154
 }

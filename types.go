@@ -32,17 +32,16 @@ type Registration struct {
 	Brand        *string  `json:"brand"`
 	Capacity     *int     `json:"capacity"`
 	Color        string   `json:"color"`
-	DFirstReg    *string  `json:"d_first_reg"`
-	DReg         *string  `json:"d_reg"`
+	FirstRegDate *string  `json:"first_reg_date"`
+	Date         *string  `json:"date"`
 	Fuel         *string  `json:"fuel"`
 	Kind         *string  `json:"kind"`
-	MakeYear     int      `json:"make_year"`
+	Year         int      `json:"year"`
 	Model        *string  `json:"model"`
-	NDoc         string   `json:"n_doc"`
-	SDoc         string   `json:"s_doc"`
-	NRegNew      string   `json:"n_reg_new"`
-	NSeating     *int     `json:"n_seating"`
-	NStanding    *int     `json:"n_standing"`
+	Code         string   `json:"code"`
+	Number       string   `json:"number"`
+	NumSeating   *int     `json:"num_seating"`
+	NumStanding  *int     `json:"num_standing"`
 	OwnWeight    *float64 `json:"own_weight"`
 	RankCategory *string  `json:"rank_category"`
 	TotalWeight  *float64 `json:"total_weight"`
