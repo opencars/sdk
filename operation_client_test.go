@@ -8,8 +8,8 @@ import (
 )
 
 func ExampleOperationClient_FindByNumber() {
-	client := toolkit.New("https://api.opencars.app", "RMk86CHp8ulX3EnmVTJwffIYu6uAg3Wj")
-	operations, err := client.Operation().FindByNumber("АА9359РС")
+	client := toolkit.New("https://api.opencars.app", "jIidbA8wivROjFNv1H8SiEoFQFHZ0VzL")
+	operations, err := client.Operation().FindByNumber("AA9359PC")
 	if err != nil {
 		log.Fatal(err)
 	}

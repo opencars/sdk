@@ -6,6 +6,7 @@ type Client struct {
 	registrationClient *RegistrationClient
 	operationClient    *OperationClient
 	wantedClient       *WantedClient
+	alprClient         *ALPRClient
 }
 
 // New initializes new instance of client structure.
@@ -48,59 +49,12 @@ func (client *Client) Wanted() *WantedClient {
 	return client.wantedClient
 }
 
-//
-//func (client *Client) searchRegistrations(code string) ([]Registration, error) {
-//	if code == "" {
-//		return nil, errors.New("code is empty")
-//	}
-//
-//	query := client.uri + registrationsPath + "?code=" + code
-//
-//	req, err := http.NewRequest(http.MethodGet, query, nil)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	req.Header.Set("Api-Key", client.token)
-//
-//	response, err := http.DefaultClient.Do(req)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	models := make([]Registration, 0)
-//	if err := json.NewDecoder(response.Body).Decode(&models); err != nil {
-//		return nil, errors.New("invalid response body")
-//	}
-//
-//	return models, nil
-//}
-//
-//// Operation makes API request to get operations details by government number.
-//// Returns first operation from OpenCars operations tables.
-//func (client *Client) Operation(number string) (*Operation, error) {
-//	operation, err := client.searchOperations(number, 1)
-//
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	return &operation[0], nil
-//}
-//
-//// Registrations makes API request to get registration info by unique transport cerificate code.
-//// Returns all operations from OpenCars operations tables.
-//func (client *Client) Registrations(code string) ([]Registration, error) {
-//	registrations, err := client.searchRegistrations(code)
-//
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	return registrations, nil
-//}
-//
-//// Operations makes API request to get operations details by government number.
-//func (client *Client) Operations(number string, limit int) ([]Operation, error) {
-//	return client.searchOperations(number, limit)
-//}
+func (client *Client) ALPR() *ALPRClient {
+	if client.alprClient == nil {
+		client.alprClient = &ALPRClient{
+			base: client,
+		}
+	}
+
+	return client.alprClient
+}

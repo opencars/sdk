@@ -22,7 +22,7 @@ func (client *WantedClient) FindByVIN(vin string) ([]WantedVehicle, error) {
 		return nil, err
 	}
 
-	req.Header.Set("Api-Key", client.base.token)
+	req.Header.Set(APIKeyHeader, client.base.token)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -45,7 +45,7 @@ func (client *WantedClient) FindByNumber(number string) ([]WantedVehicle, error)
 		return nil, err
 	}
 
-	req.Header.Set("Api-Key", client.base.token)
+	req.Header.Set(APIKeyHeader, client.base.token)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
