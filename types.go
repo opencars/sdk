@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+const (
+	// APIKeyHeader ...
+	APIKeyHeader = "X-Api-Key"
+)
+
 // Operation represents public registrations of transport.
 type Operation struct {
 	Person      string   `json:"person"`
@@ -65,4 +70,16 @@ type WantedVehicle struct {
 	RevisionID    string    `json:"revision_id"`
 	TheftDate     string    `json:"theft_date"`
 	InsertDate    time.Time `json:"insert_date"`
+}
+
+// CoordinateALPR represents
+type CoordinateALPR struct {
+	X int `json:"x"`
+	Y int `json:"y"`
+}
+
+// ResultALPR represents result of recognition.
+type ResultALPR struct {
+	Coordinates []CoordinateALPR `json:"coordinates"`
+	Plate       string           `json:"plate"`
 }

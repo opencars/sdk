@@ -22,7 +22,7 @@ func (client *RegistrationClient) FindByVIN(vin string) ([]Registration, error) 
 		return nil, err
 	}
 
-	req.Header.Set("Api-Key", client.base.token)
+	req.Header.Set(APIKeyHeader, client.base.token)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -45,7 +45,7 @@ func (client *RegistrationClient) FindByNumber(number string) ([]Registration, e
 		return nil, err
 	}
 
-	req.Header.Set("Api-Key", client.base.token)
+	req.Header.Set(APIKeyHeader, client.base.token)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -68,7 +68,7 @@ func (client *RegistrationClient) FindByCode(code string) (*Registration, error)
 		return nil, err
 	}
 
-	req.Header.Set("Api-Key", client.base.token)
+	req.Header.Set(APIKeyHeader, client.base.token)
 
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {

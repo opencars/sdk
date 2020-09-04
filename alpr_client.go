@@ -8,15 +8,15 @@ import (
 )
 
 const (
-	operationsPath = "/api/v1/operations"
+	alprPath = "/api/v1/alpr"
 )
 
-type OperationClient struct {
+type ALPRClient struct {
 	base *Client
 }
 
-func (client *OperationClient) FindByNumber(number string) ([]Operation, error) {
-	query := client.base.uri + operationsPath + "?number=" + number
+func (client *ALPRClient) Recognize(url string) ([]ResultALPR, error) {
+	query := client.base.uri + alprPath + "/private/recognize?image_url=" + url
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
@@ -32,12 +32,13 @@ func (client *OperationClient) FindByNumber(number string) ([]Operation, error) 
 
 	switch response.StatusCode {
 	case http.StatusOK:
-		operations := make([]Operation, 0)
-		if err := json.NewDecoder(response.Body).Decode(&operations); err != nil {
+		results := make([]ResultALPR, 0)
+
+		if err := json.NewDecoder(response.Body).Decode(&results); err != nil {
 			return nil, errors.New("invalid response body")
 		}
 
-		return operations, nil
+		return results, nil
 	case http.StatusUnauthorized:
 		var e Error
 

@@ -9,13 +9,13 @@ import (
 
 func ExampleWantedClient_FindByNumber() {
 	client := toolkit.New("https://api.opencars.app", "jIidbA8wivROjFNv1H8SiEoFQFHZ0VzL")
-	wanted, err := client.Wanted().FindByNumber("ВС4080НІ")
+	wanted, err := client.Wanted().FindByNumber("AT4750CP")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println(*wanted[0].Number)
-	// Output: ВС4080НІ
+	// Output: АТ4750СР
 }
 
 func ExampleWantedClient_FindByVIN() {
