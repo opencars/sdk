@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -15,7 +16,7 @@ type WantedClient struct {
 }
 
 func (client *WantedClient) FindByVIN(vin string) ([]WantedVehicle, error) {
-	query := client.base.uri + wantedPath + "?vin=" + vin
+	query := client.base.uri + wantedPath + "?vin=" + url.QueryEscape(vin)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
@@ -38,7 +39,7 @@ func (client *WantedClient) FindByVIN(vin string) ([]WantedVehicle, error) {
 }
 
 func (client *WantedClient) FindByNumber(number string) ([]WantedVehicle, error) {
-	query := client.base.uri + wantedPath + "?number=" + number
+	query := client.base.uri + wantedPath + "?number=" + url.QueryEscape(number)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {

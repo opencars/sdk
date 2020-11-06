@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -15,7 +16,7 @@ type RegistrationClient struct {
 }
 
 func (client *RegistrationClient) FindByVIN(vin string) ([]Registration, error) {
-	query := client.base.uri + registrationPath + "?vin=" + vin
+	query := client.base.uri + registrationPath + "?vin=" + url.QueryEscape(vin)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
@@ -38,7 +39,7 @@ func (client *RegistrationClient) FindByVIN(vin string) ([]Registration, error) 
 }
 
 func (client *RegistrationClient) FindByNumber(number string) ([]Registration, error) {
-	query := client.base.uri + registrationPath + "?number=" + number
+	query := client.base.uri + registrationPath + "?number=" + url.QueryEscape(number)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
@@ -61,7 +62,7 @@ func (client *RegistrationClient) FindByNumber(number string) ([]Registration, e
 }
 
 func (client *RegistrationClient) FindByCode(code string) (*Registration, error) {
-	query := client.base.uri + registrationPath + "/" + code
+	query := client.base.uri + registrationPath + "/" + url.QueryEscape(code)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {

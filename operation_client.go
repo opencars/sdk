@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -16,7 +17,7 @@ type OperationClient struct {
 }
 
 func (client *OperationClient) FindByNumber(number string) ([]Operation, error) {
-	query := client.base.uri + operationsPath + "?number=" + number
+	query := client.base.uri + operationsPath + "?number=" + url.QueryEscape(number)
 
 	req, err := http.NewRequest(http.MethodGet, query, nil)
 	if err != nil {
